@@ -20,12 +20,7 @@ export function renderResult(result, userLevels, dimOrder, dimDefs, config) {
   const avatarEl = document.getElementById('result-avatar')
   console.log('DEBUG avatar - primary:', primary.code, 'avatar:', primary.avatar)
   if (primary.avatar) {
-    // 在开发模式下，Vite 的 base 为 /SBTI/，需要添加 base 路径前缀
-    const base = '/SBTI/'
-    const avatarPath = primary.avatar.startsWith('/') 
-      ? base + primary.avatar.slice(1)
-      : base + primary.avatar
-    avatarEl.src = avatarPath
+    avatarEl.src = primary.avatar
     avatarEl.style.display = 'block'
   } else {
     avatarEl.style.display = 'none'
