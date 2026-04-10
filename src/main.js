@@ -15,6 +15,10 @@ async function init() {
     loadJSON(new URL('../data/types.json', import.meta.url).href),
     loadJSON(new URL('../data/config.json', import.meta.url).href),
   ])
+  
+  // Debug: check if avatar exists in types
+  console.log('DEBUG types.standard[0]:', types.standard[0])
+  console.log('DEBUG types.special:', types.special)
 
   const pages = {
     intro: document.getElementById('page-intro'),

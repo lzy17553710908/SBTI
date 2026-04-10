@@ -16,6 +16,21 @@ export function renderResult(result, userLevels, dimOrder, dimDefs, config) {
   else if (mode === 'fallback') kicker.textContent = '系统强制兜底'
   else kicker.textContent = '你的主类型'
 
+  // Avatar
+  const avatarEl = document.getElementById('result-avatar')
+  console.log('DEBUG avatar - primary:', primary.code, 'avatar:', primary.avatar)
+  if (primary.avatar) {
+    // 在开发模式下，Vite 的 base 为 /SBTI/，需要添加 base 路径前缀
+    const base = '/SBTI/'
+    const avatarPath = primary.avatar.startsWith('/') 
+      ? base + primary.avatar.slice(1)
+      : base + primary.avatar
+    avatarEl.src = avatarPath
+    avatarEl.style.display = 'block'
+  } else {
+    avatarEl.style.display = 'none'
+  }
+
   // 主类型
   document.getElementById('result-code').textContent = primary.code
   document.getElementById('result-name').textContent = primary.cn
@@ -86,15 +101,5 @@ export function renderResult(result, userLevels, dimOrder, dimDefs, config) {
   const btnDownload = document.getElementById('btn-download')
   btnDownload.onclick = () => {
     generateShareImage(primary, userLevels, dimOrder, dimDefs, mode)
-  }
-
-  // 复制 AI Agent 命令
-  const btnAgent = document.getElementById('btn-agent')
-  btnAgent.onclick = () => {
-    const cmd = `git clone https://github.com/pingfanfan/SBTI.git && cd SBTI && npm install && npm run dev`
-    navigator.clipboard.writeText(cmd).then(() => {
-      btnAgent.textContent = '已复制!'
-      setTimeout(() => { btnAgent.textContent = '复制一键部署命令' }, 2000)
-    })
   }
 }
